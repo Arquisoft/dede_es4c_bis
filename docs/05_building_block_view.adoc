@@ -1,0 +1,42 @@
+[[section-building-block-view]]
+
+
+== Vista de Bloques
+
+=== Sistema General de Caja Blanca
+
+El siguiente diagrama representa la estrucutra general del sistema y de qué servicios depende.
+
+[plantuml,"DiagramaCajaBlanca",png]
+----
+left to right direction
+skinparam actorStyle awesome
+package DeDe{
+    [Vista]
+    [Controlador]
+    [Modelo]
+}
+actor Usuario as g
+database POD
+database BBDD
+g --> Vista : interactua
+BBDD --> Modelo : envía datos
+Modelo --> BBDD : almacena datos
+Modelo --> POD : obtiene información
+----
+
+La aplicación, en una primera instancia, tendrá un solo actor interactuando, el usuario. Este realizará peticiones al sistema através de la vista.
+El sistema, a su vez, utilizará el sistema SOLID de pods y la base de datos para acceder a los datos que compondrán a la aplicación.
+La caja negra del diagrama representa las distintas capas del Modelo Vista Controlador.
+
+==== Caja Negra 1
+
+[cols="1,2"]
+.Caja negra 1
+|===
+|Nombre|Responsabilidad
+| Modelo | Capa donde se gestionan los datos con los cuales opera el sistema, gestionando también los accesos y actualizaciones de los mismos
+| Vista | Contiene código que compondrá la interfaz de usuario de la aplicación, tratando con los datos pero no accediendo directamente a éstos
+| Controlador | La esencia del controlador es enlazar la vista con el modelo. Contiene la lógica que interpreta y le da sentido a las instrucciones realizadas por el usuario
+|===
+
